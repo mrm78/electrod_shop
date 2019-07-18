@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for product in products %}
+
+    <div style="padding-bottom:10px">
+        <div class="row">
+            <div class="col-xs-4">
+                <img src="{{product.image.url}}" class="img-responsive media-object img-thumbnail" width=60%>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+
+
+{% endblock %}

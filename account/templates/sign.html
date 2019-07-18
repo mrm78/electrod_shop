@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="display:flex; justify-content:center">
+    <div class="row">
+
+        <div class="col-xs-6">
+            <div class="jumbotron" style="background-color: rgb(119, 183, 255); padding-top:20px" >
+            <div class="text-center"><h3 style="color: rgb(128, 117, 117)">عضویت</h3></div>
+            <form action="#">
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-user"></span> نام کاربری</label>
+                    <input  class="form-control" type="text" name="username" placeholder="نام کاربری">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-lock"></span> رمز عبور</label>
+                    <input  class="form-control" type="password" name="password" placeholder="رمز عبور">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-phone"></span> شماره تلفن</label>
+                    <input  class="form-control" type="tel" name="tel" placeholder=" شماره تلفن">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-home"></span> آدرس</label>
+                    <input  class="form-control" type="tel" name="tel" placeholder=" آدرس">
+                </div>
+                    <button class="btn btn-primary" type="submit">تائید</button>
+            </form>
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="jumbotron" style="background-color: rgb(119, 183, 255); padding-top:20px" >
+            <div class="text-center"><h3 style="color: rgb(128, 117, 117)">ورود</h3></div>
+            <form action="#">
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-user"></span> نام کاربری</label>
+                    <input  class="form-control" type="text" name="username" placeholder="نام کاربری">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-lock"></span> رمز عبور</label>
+                    <input  class="form-control" type="password" name="password" placeholdbutton type="submit" placeholder="رمز عبور">
+                </div>
+                    <button class="btn btn-primary" type="submit">تائید</button>
+            </form>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+{% endblock %}
