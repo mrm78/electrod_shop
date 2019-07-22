@@ -8,5 +8,5 @@ class user(AbstractUser):
     def __str__(self):
         return self.username
     class Meta:
-        verbose_name_plural = "کاربر"
+        verbose_name_plural = " کاربر"
 

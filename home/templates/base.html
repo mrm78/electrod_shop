@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
@@ -15,12 +16,15 @@
 
     <div class="container-fluid" >
 
-        <div class="navbar navbar-inverse" style="padding-right:10px; background-color:rgb(231, 56, 56)">
+
+
+        <div class="navbar navbar-inverse hidden-xs" style="padding-right:10px; background-color:rgb(231, 56, 56)">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" style="font-size: 1.5em; color:white">مقالات علمی</a></li>
-                <li><a href="#" style="font-size: 1.5em; color:white">عضویت</a></li>
-                <li><a href="#" style="font-size: 1.5em; color:white">ورود</a></li>
+                <li><a href="#" style="font-size: 1.5em; color:white">سبد</a></li>
+                <li><a href="#" style="font-size: 1.5em; color:white">عضویت/ورود</a></li>
             </ul>
+
             <form action="#" class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="search" class="form-control" placeholder="جست و جو">
@@ -28,6 +32,28 @@
                 <button type="submit" class="btn btn-warning">search</button>
             </form>
         </div>
+
+
+            <div style="background-color:rgb(231, 47, 47)" class="row visible-xs">
+
+                <div class="col-xs-8">
+                    <form action="#" class="row" style="display:flex; justify-content:space-around; padding-top:1vh; padding-bottom:1vh">
+                        <input type="search" class="col-xs-8 form-control" placeholder="جست و جو">
+                        <button type="submit" class="btn btn-xs btn-warning col-xs-2"><span class="glyphicon glyphicon-search"></button>
+                    </form>
+                </div>
+
+                <div class="col-xs-3"></div>
+
+                <a class="col-xs-1" data-toggle="collapse" data-target="#menu" href="#" style="font-size:x-large; padding-top:1vh; color:black; display:flex; justify-self: flex-end"><span class="glyphicon glyphicon-th-list"></a>
+
+            </div>
+
+            <div class="collapse row" id="menu" style="background-color:rgb(231, 47, 47); padding-right:1vw">
+                    <a href="#"><div class="text-right"><span style="color:cornsilk; font-size:5vw">عضویت/ورود</span></div></a>
+                    <a href="#"><div class="text-right"><span style="color:cornsilk; font-size:5vw">سبد</span></div></a>
+                    <a href="#"><div class="text-right"><span style="color:cornsilk; font-size:5vw">مقالات علمی</span></div></a>
+                    </div>
 
         {% block content %}
         {% endblock %}
@@ -38,16 +64,16 @@
         <div style="padding:15px; background-color:rgb(58, 58, 58)">
             <div class="row" style="display:flex; justify-content:space-around">
 
-                <div class="col-xs-3">
-                <p style="color:rgb(204, 204, 204); font-size:1.4em">hyperelectrode.com</p>
-                    <strong style="color:rgb(184, 184, 184); font-size:15px"><span style="color:rgb(189, 107, 1)" class="glyphicon glyphicon glyphicon-record"></span> تهران شهرک صنعتی شمس آباد روبروی خروجی شهرک - فروشگاه الکترود اعتماد</strong></br></br>
-                    <strong style="color:rgb(184, 184, 184); font-size:13px"><span style="color:rgb(189, 154, 1)" class="glyphicon glyphicon-earphone"></span> 021-56229706</strong></br>
-                    <strong style="color:rgb(184, 184, 184); font-size:13px"><span style="color:rgb(189, 154, 1)" class="glyphicon glyphicon-earphone"></span> 021-56224706</strong></br>
-                    <strong style="color:rgb(184, 184, 184); font-size:13px"><span style="color:rgb(189, 154, 1)" class="glyphicon glyphicon-earphone"></span> 021-56229684</strong></br>
+                <div class="col-xs-4">
+                <p style="color:rgb(204, 204, 204); font-size:2vmax">hyperelectrode.com</p>
+                    <strong style="color:rgb(184, 184, 184); font-size:1.5vw"><span style="color:rgb(189, 107, 1)" class="glyphicon glyphicon glyphicon-record"></span> تهران شهرک صنعتی شمس آباد روبروی خروجی شهرک - فروشگاه الکترود اعتماد</strong></br></br>
+                    <strong style="color:rgb(184, 184, 184); font-size:1.7vw"><span style="color:rgb(189, 154, 1)" class="glyphicon glyphicon-earphone"></span> 021-56229706</strong></br>
+                    <strong style="color:rgb(184, 184, 184); font-size:1.7vw"><span style="color:rgb(189, 154, 1)" class="glyphicon glyphicon-earphone"></span> 021-56224706</strong></br>
+                    <strong style="color:rgb(184, 184, 184); font-size:1.7vw"><span style="color:rgb(189, 154, 1)" class="glyphicon glyphicon-earphone"></span> 021-56229684</strong></br>
                 </div>
 
                 <div class="col-xs-4 text-center">
-                    <strong style="color:rgb(206, 56, 56); font-size:1.25em">شبکه های اجتماعی</strong></br>
+                    <strong style="color:rgb(206, 56, 56); font-size:2vmax">شبکه های اجتماعی</strong></br>
                     <hr style="border-color:rgb(250, 84, 84); width:80%">
                     <img src="{% static 'gmail.png' %}" width="15%" >
                     <img src="{% static 'telegram.png' %}" width="15%">
@@ -55,12 +81,12 @@
                 </div>
 
                 <div class="col-xs-4 text-center">
-                    <p style="font-size:1.25em; color: rgb(206, 56, 56)">برندها</p>
+                    <p style="font-size:2vmax; color: rgb(206, 56, 56)">برندها</p>
                     <hr style="border-color:rgb(250, 84, 84); width:90%">
                 </div>
 
             </div>
-            <div class="text-center" style="color: rgb(177, 177, 177)"><span> تمامی حقوق این سایت نزد هایپرالکترود محفوظ می باشد </span><span class="glyphicon glyphicon-copyright-mark"></span></div>
+            <div class="text-center" style="color: rgb(177, 177, 177)"><span style="font-size:2vw"> تمامی حقوق این سایت نزد هایپرالکترود محفوظ می باشد </span><span class="glyphicon glyphicon-copyright-mark"></span></div>
         </div>
 
     </div>

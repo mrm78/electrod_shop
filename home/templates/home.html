@@ -2,17 +2,76 @@
 
 {% block content %}
 
+<div class="row hidden-xs">
 {% for product in products %}
 
-    <div style="padding-bottom:10px">
-        <div class="row">
-            <div class="col-xs-4">
-                <img src="{{product.image.url}}" class="img-responsive media-object img-thumbnail" width=60%>
+    <div style="padding:1vh; padding-left:3vw; padding-right:3vw" class="col-xs-6">
+        <a href="">
+            <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh">
+                <div class="col-xs-4">
+                    <img src="{{product.image.url}}" class="img-thumbnail" style="height:20vh">
+                </div>
+
+                <div class="col-xs-3">
+                    <p>سایزهای موجود</p>
+                    <P>{{ product.sizes }}</P>
+                </div>
+
+                <div class="col-xs-5 text-right text-danger">
+                    <p style="font-size:1.5vw">{{ product.name }}</p>
+                    <p style="font-size: 2vw">قیمت: {{ product.price }}</p>
+
+                    {% for i in product.empty_star_rating %}
+                    <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
+                    {% endfor %}
+                    {% for i in product.full_star_rating %}
+                    <span class="fa fa-star" style="color:gold"></span>
+                    {% endfor %}
+
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 
 {% endfor %}
+</div>
 
+
+
+
+
+<div class="visible-xs">
+        {% for product in products %}
+        
+            <div style="padding:1vh; padding-left:3vw; padding-right:3vw" class="">
+                <a href="">
+                    <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh">
+                        <div class="col-xs-4">
+                            <img src="{{product.image.url}}" class="img-thumbnail" style="height:20vh; width:auto;">
+                        </div>
+        
+                        <div class="col-xs-3">
+                            <p>سایزهای موجود</p>
+                            <P>{{ product.sizes }}</P>
+                        </div>
+        
+                        <div class="col-xs-5 text-right text-danger">
+                            <p style="font-size:3vw">{{ product.name }}</p>
+                            <p style="font-size: 2vw">قیمت: {{ product.price }}</p>
+        
+                            {% for i in product.empty_star_rating %}
+                            <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
+                            {% endfor %}
+                            {% for i in product.full_star_rating %}
+                            <span class="fa fa-star" style="color:gold"></span>
+                            {% endfor %}
+        
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+        {% endfor %}
+        </div>
 
 {% endblock %}
