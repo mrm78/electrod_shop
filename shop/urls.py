@@ -20,5 +20,6 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home', include('home.urls')),
+    path('', include('home.urls')),
+    path('sign/',include('account.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

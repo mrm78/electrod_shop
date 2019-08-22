@@ -2,22 +2,132 @@
 
 {% block content %}
 
-<div class="row hidden-xs">
-{% for product in products %}
 
-    <div style="padding:1vh; padding-left:3vw; padding-right:3vw" class="col-xs-6">
-        <a href="">
-            <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh">
+<!--brands and types menu-->
+<div class="row bg-succes" style="display:flex; justify-content:flex-end; padding-right:3vw">
+    <form action="{% url 'home' %}" name="typeform" method="POST" id="typeform" class="col-xs-6 col-md-3">
+        {% csrf_token %}
+        <select name="q" class="form-control" form="typeform" onchange="document.forms['typeform'].submit()">
+            <option>جست و جو براساس نوع محصول</option>
+            {% for type in types %}
+                <option value="{{type.name}}">{{type.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="form" value="types">
+    </form>
+    <form action="{% url 'home' %}" name="brandform" method="POST" id="brandform" class="col-xs-6 col-md-3">
+            {% csrf_token %}
+        <select name="q" class="form-control" form="brandform" onchange="document.forms['brandform'].submit()">
+            <option>جست و جو براساس برند محصول</option>
+            {% for brand in brands %}
+                <option value="{{brand.name}}">{{brand.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="form" value="brands">
+    </form>
+</div>
+
+
+
+
+<!--this div is for pc-->
+
+<div class="hidden-xs">
+    <!--pruducts on top-->
+    {% if q %}
+        <h3 class="text-right" style="margin-right:2vw">جست و جو برای:  <span style="color:rgb(255, 55, 55)">{{q}}</span></h3>
+    {% endif %}
+    <div class="row" style="margin:0px">
+        {% for product in products_on_top %}
+
+        <div style="padding:1vh; padding-left:3vw; padding-right:3vw" class="col-xs-6">
+            <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh; box-shadow: 0px 0px 10px 7px rgb(187, 187, 187);">
                 <div class="col-xs-4">
                     <img src="{{product.image.url}}" class="img-thumbnail" style="height:20vh">
                 </div>
 
-                <div class="col-xs-3">
-                    <p>سایزهای موجود</p>
-                    <P>{{ product.sizes }}</P>
+                <div class="row col-xs-4  text-right">
+                    {% if product.size != 'None' %}
+                    <p class="col-xs-6">{{ product.size }}</p>
+                    <p class="col-xs-4">:سایز</p>
+                    {% endif %}
                 </div>
 
-                <div class="col-xs-5 text-right text-danger">
+                <div class="col-xs-4 text-right text-danger">
+                    <p style="font-size:1.5vw">{{ product.name }}</p>
+                    <p style="font-size: 2vw">قیمت: {{ product.price }}</p>
+
+                    {% for i in product.empty_star_rating %}
+                        <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
+                    {% endfor %}
+                    {% for i in product.full_star_rating %}
+                        <span class="fa fa-star" style="color:gold"></span>
+                    {% endfor %}
+                    </br></br>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'order' product.id %}">
+                            <p style="color:rgb(19, 0, 102)">خرید <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                        </a>
+                    {% else %}
+                        <a href="javascript:{alert('!جهت ثبت سفارش ابتدا به حساب کاربری خود وارد شود')}">
+                            <p style="color:rgb(19, 0, 102)"> <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+
+
+<!--scrollable divs-->
+
+{% for brand in shown_brands %}
+    <div style="padding:1vw">
+        <h3 class="text-right" style="margin-right:1vw">محصولات <span style="color:rgb(255, 55, 55)">{{brand.name}}</span></h3>
+        <div style="overflow-x:scroll; overflow-y:hidden; white-space: nowrap; height:220px">
+            {% for product in brand.product_set.all %}
+                <div style="display:inline-block; width:100px; height:200px; background-color:white; border-radius:5px; padding-block:1vw; font-family:yekan; font-size:1.5vw; white-space:normal;box-shadow: 3px 3px 3px 3px rgb(126, 126, 126);">
+                    <div style="padding:3px; height:50%">
+                        <img src="{{product.image.url}}" style="height:100%; width:100%"> 
+                    </div>
+                    <div style="height:10%"></div>
+                    <a href="{% url 'order' product.id %}" style="color:rgb(53, 53, 53)">
+                        <p style="height:10%; font-size:1.25vw" class="text-center">{{product.name}}</p>
+                    </a>
+                    <div style="line-height:30%; height:20%;">
+                        <hr style="width:80%; color:lightslategray">
+                        <p class="text-center" style="color:rgb(226, 44, 44); font-size:1.25vw">{{product.price}}   تومان</p>
+                    </div>
+                </div>
+                <div style="display:inline-block; width:10px"></div>
+            {% endfor %}
+        </div>
+    </div>
+    <hrr style="width:100%; border-color: rgb(87, 87, 87)" class="contain">
+{% endfor %}
+
+
+    <!--pruducts on botton-->
+    <h3 class="text-right" style="margin-right:1vw">سایر محصولات فروشگاه <span style="color:rgb(255, 55, 55)">هایپر الکترود</span></h3>
+    <div class="row" style="margin:0px">
+    {% for product in products_on_bottom %}
+
+        <div style="padding:1vh; padding-left:3vw; padding-right:3vw" class="col-xs-6">
+            <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh; box-shadow: 0px 0px 10px 7px rgb(187, 187, 187);">
+                <div class="col-xs-4">
+                    <img src="{{product.image.url}}" class="img-thumbnail" style="height:20vh">
+                </div>
+
+                <div class="row col-xs-4  text-right">
+                    {% if product.size != 'None' %}
+                    <p class="col-xs-6">{{ product.size }}</p>
+                    <p class="col-xs-4">:سایز</p>
+                    {% endif %}
+                </div>
+
+                <div class="col-xs-4 text-right text-danger">
                     <p style="font-size:1.5vw">{{ product.name }}</p>
                     <p style="font-size: 2vw">قیمت: {{ product.price }}</p>
 
@@ -27,51 +137,144 @@
                     {% for i in product.full_star_rating %}
                     <span class="fa fa-star" style="color:gold"></span>
                     {% endfor %}
+                    </br></br>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'order' product.id %}">
+                            <p style="color:rgb(19, 0, 102)">خرید <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                        </a>
+                    {% else %}
+                        <a href="javascript:{alert('!جهت ثبت سفارش ابتدا به حساب کاربری خود وارد شود')}">
+                            <p style="color:rgb(19, 0, 102)"> <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                        </a>
+                    {% endif %}
 
                 </div>
             </div>
-        </a>
-    </div>
+        </div>
 
-{% endfor %}
+    {% endfor %}
+    </div>
 </div>
 
 
 
 
 
+
+
+
+
+
+
+<!--this div is for phone-->
+
 <div class="visible-xs">
-        {% for product in products %}
+        <!--prodcut on top-->
+        {% if q %}
+        <h3 class="text-right" style="margin-right:10px">جست و جو برای:  <span style="color:rgb(255, 55, 55)">{{q}}</span></h3>
+        {% endif %}
+        {% for product in products_on_top %}
         
-            <div style="padding:1vh; padding-left:3vw; padding-right:3vw" class="">
-                <a href="">
-                    <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh">
-                        <div class="col-xs-4">
-                            <img src="{{product.image.url}}" class="img-thumbnail" style="height:20vh; width:auto;">
+            <div style="padding:1vh; margin-right:3vw; margin-left:3vw">
+                    <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh; box-shadow: 0px 0px 3px 3px rgb(187, 187, 187)">
+                        <div class="col-xs-5">
+                            <img src="{{product.image.url}}" class="img-thumbnail" style="height:auto; width:100%;">
                         </div>
         
-                        <div class="col-xs-3">
-                            <p>سایزهای موجود</p>
-                            <P>{{ product.sizes }}</P>
-                        </div>
-        
-                        <div class="col-xs-5 text-right text-danger">
-                            <p style="font-size:3vw">{{ product.name }}</p>
-                            <p style="font-size: 2vw">قیمت: {{ product.price }}</p>
+                        <div class="col-xs-7 text-right text-danger">
+                            <p style="font-size:15px">{{ product.name }}</p>
+                            <p style="font-size:12px">قیمت: {{ product.price }}</p>
         
                             {% for i in product.empty_star_rating %}
-                            <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
+                                <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
                             {% endfor %}
                             {% for i in product.full_star_rating %}
-                            <span class="fa fa-star" style="color:gold"></span>
+                                <span class="fa fa-star" style="color:gold"></span>
                             {% endfor %}
-        
+                            </br></br>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'order' product.id %}">
+                                    <p style="color:rgb(19, 0, 102)">خرید <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                                </a>
+                            {% else %}
+                                <a href="javascript:{alert('!جهت ثبت سفارش ابتدا به حساب کاربری خود وارد شود')}">
+                                    <p style="color:rgb(19, 0, 102)"> <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
-                </a>
             </div>
         
         {% endfor %}
+
+
+        <!--scrollable divs-->
+
+        {% for brand in shown_brands %}
+            <h3 class="text-right" style="margin-right:5px">محصولات <span style="color:rgb(255, 55, 55)">{{brand.name}}</span></h3>
+            <div style="overflow-x:scroll; overflow-y:hidden; white-space: nowrap; height:220px">
+                {% for product in brand.product_set.all %}
+                    <div style="display:inline-block; width:100px; height:200px; background-color:white; border-radius:5px; padding-block:1vw; font-family:yekan; font-size:1.5vw; white-space:normal;box-shadow: 3px 3px 3px 3px rgb(126, 126, 126);">
+                        <div style="padding:3px; height:50%">
+                            <img src="{{product.image.url}}" style="height:100%; width:100%"> 
+                        </div>
+                        <div style="height:10%"></div>
+                        <a href="{% url 'order' product.id %}" style="color:rgb(53, 53, 53)">
+                            <p style="height:10%; font-size:13px" class="text-center">{{product.name}}</p>
+                        </a>
+                        <div style="line-height:30%; height:20%;">
+                            <hr style="width:80%; color:lightslategray">
+                            <p class="text-center" style="color:rgb(226, 44, 44); font-size:10px">{{product.price}}   تومان</p>
+                        </div>
+                    </div>
+                    <div style="display:inline-block; width:10px"></div>
+                {% endfor %}
+            </div>
+            <hr style="width:100%; border-color: rgb(87, 87, 87)" class="contain">
+        {% endfor %}
+
+
+
+        <!--prodcut on bottom-->
+        <h3 class="text-right" style="margin-right:5px">سایر محصولات فروشگاه <span style="color:rgb(255, 55, 55)">هایپر الکترود</span></h3>
+        {% for product in products_on_bottom %}
+        
+            <div style="padding:1vh; margin-right:10px; margin-left:10px " class="">
+                    <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh; box-shadow: 0px 0px 3px 3px rgb(187, 187, 187)">
+                        <div class="col-xs-5">
+                            <img src="{{product.image.url}}" class="img-thumbnail" style="height:auto; width:100%">
+                        </div>
+        
+                        <div class="col-xs-7 text-right text-danger">
+                            <p style="font-size:15px">{{ product.name }}</p>
+                            <p style="font-size: 12px">قیمت: {{ product.price }}</p>
+        
+                            {% for i in product.empty_star_rating %}
+                                <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
+                            {% endfor %}
+                            {% for i in product.full_star_rating %}
+                                <span class="fa fa-star" style="color:gold"></span>
+                            {% endfor %}
+                            </br></br>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'order' product.id %}">
+                                    <p style="color:rgb(19, 0, 102)">خرید <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                                </a>
+                            {% else %}
+                                <a href="javascript:{alert('!جهت ثبت سفارش ابتدا به حساب کاربری خود وارد شود')}">
+                                    <p style="color:rgb(19, 0, 102)"> <span class="glyphicon glyphicon-shopping-cart"></span></p>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+            </div>
+        
+        {% endfor %}
+
+
         </div>
+    </br>
+
+
 
 {% endblock %}

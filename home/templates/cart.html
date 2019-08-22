@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+{% for order in user.cart.all %}
+
+<!--this is fo pc-->
+<div style="padding:1vh; padding-left:3vw; padding-right:3vw" class="col-xs-6 hidden-xs">
+        <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh; box-shadow: 0px 0px 10px 7px rgb(187, 187, 187);">
+            <div class="col-xs-4">
+                <img src="{{order.product.image.url}}" class="img-thumbnail" style="height:20vh">
+            </div>
+
+            <div class="col-xs-4 text-right">
+                <p style="font-size: 1vw; color:#1b76ff">مشخصات محصول</p>
+                {% if order.product.size != 'None' %}
+                    <p style="font-size: 1.5vw; color:#1b76ff">سایز: <span style="font-size: 1.5vw; color:black">{{ order.size }}</span></p>
+                {% endif %}
+                <p style="font-size: 1.5vw; color:#1b76ff">شرکت: <span style="font-size: 1.5vw; color:black">{{ order.product.brand }}</span></p>
+            </div>
+
+            <div class="col-xs-4 text-right text-danger">
+                <p style="font-size:2vw">{{ order.product.name }}</p>
+                <p style="font-size: 1.5vw">قیمت: {{ order.product.price }}</p>
+                <p style="font-size: 1.5vw; color:navy">مقدار: <span style="font-size: 1.5vw; color:black">{{ order.amount }} {{order.product.Type.unit}}</span></p>
+                <p style="font-size: 1.5vw; color:navy">قیمت کل: <span style="font-size: 1.5vw; color:black">{{ order.total_price }}</span></p>
+                </brh>
+                <a href="{% url 'edit_cart' 'delete' order.id %}" style="font-size:1vw; color:darkorange">حذف</span></a>
+                <a href="{% url 'edit_cart' 'edit' order.id %}" style="font-size:1vw; color:darkorange"><span class="glyphicon glyphicon-edit"></span></a>
+                <a href="{% url 'edit_cart' 'edit' order.id %}" style="font-size:1vw; color:darkorange">ویرایش</span></a>
+                <a href="{% url 'edit_cart' 'delete' order.id %}" style="font-size:1vw; color:darkorange"><span class="glyphicon glyphicon-trash"></span></a>
+                
+            </div>
+        </div>
+</div>
+
+
+
+<!--this is fo phone-->
+<div style="padding:1vh; padding-left:4vw; padding-right:4vw" class="visible-xs">
+        <div class="row" style="background-color:rgb(255, 255, 255);padding:1vh; border-radius:1vh; box-shadow: 0px 0px 10px 7px rgb(187, 187, 187);">
+            <div class="col-xs-4">
+                <img src="{{order.product.image.url}}" class="img-thumbnail" style="height:auto; width:100%">
+            </div>
+
+            <div class="col-xs-4 text-right">
+                <p style="font-size: 2vw; color:#1b76ff">مشخصات محصول</p>
+                {% if order.product.size != 'None' %}
+                    <p style="font-size: 2vw; color:#1b76ff">سایز: <span style="font-size: 2.5vw; color:black">{{ order.size }}</span></p>
+                {% endif %}
+                <p style="font-size: 2vw; color:#1b76ff">شرکت: <span style="font-size: 2.5vw; color:black">{{ order.product.brand }}</span></p>
+            </div>
+
+            <div class="col-xs-4 text-right text-danger">
+                <p style="font-size:15px">{{ order.product.name }}</p>
+                <p style="font-size: 12px">قیمت: {{ order.product.price }}</p>
+                <p style="font-size: 8px; color:navy">مقدار: <span style="font-size: 12px; color:black">{{ order.amount }} {{order.product.Type.unit}}</span></p>
+                <p style="font-size: 8px; color:navy">قیمت کل: <span style="font-size: 12px; color:black">{{ order.total_price }}</span></p>
+                </brh>
+                <a href="{% url 'edit_cart' 'delete' order.id %}" style="font-size:10px; color:darkorange">حذف</span></a>
+                <a href="{% url 'edit_cart' 'edit' order.id %}" style="font-size:10px; color:darkorange"><span class="glyphicon glyphicon-edit"></span></a>
+                <a href="{% url 'edit_cart' 'edit' order.id %}" style="font-size:10px; color:darkorange">ویرایش</span></a>
+                <a href="{% url 'edit_cart' 'delete' order.id %}" style="font-size:10px; color:darkorange"><span class="glyphicon glyphicon-trash"></span></a>
+                
+            </div>
+        </div>
+</div>
+
+
+
+{% endfor %}</div>
+
+</br>
+<div class="container-fluid" style="display:flex; justify-content:flex-end">
+    <div style="padding:1vw"><a href="{% url 'home' %}"><button class="btn btn-primary">صفحه محصولات</button></a></div>
+    <div style="padding:1vw"><a href="{% url 'send_cart' %}"><button class="btn btn-primary">ارسال سفارش</button></a></div>
+</div></br>
+
+{% endblock %}

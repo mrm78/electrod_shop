@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!--for pc-->
+<form action="{% url 'send_cart' %}" method="POST" class="hidden-xs" style="padding-bottom:10px; padding:10px">
+    {% csrf_token %}
+    <div class="row text-right" style="display:flex; justify-content:space-around">
+        <div class="col-xs-4">
+            <p style="font-size:2vw; color:#1b76ff">:شهر</p>
+            <select type="text" name="city" class="form-control">
+                <option value="یزد">یزد</option>
+                <option value="تهران">تهران</option>
+            </select>
+        </div>
+        <div class="col-xs-4">
+            <p style="font-size:2vw; color:#1b76ff">:تلفن</p>
+            <input type="text" name="phone" class="form-control" value="{{user.phone}}">
+        </div>
+    </div>
+    <div class="form-group text-right" style="">
+        <p style="font-size:2vw; color:#1b76ff">: آدرس دقیق</p>
+        <input type="text" name="address" class="form-control text-right" value="{{user.address}}">
+    </div>
+    <div style="display:flex; justify-content:flex-end">
+        <button type="submit" class="btn btn-primary">ارسال سفارش</button>
+    </div>
+</form>
+
+
+
+<!--for phone-->
+<form action="{% url 'send_cart' %}" method="POST" class="visible-xs" style="padding-bottom:10px; padding:10px">
+        {% csrf_token %}
+        
+        <div class="form-group text-right">
+            <p style="font-size:2vw; color:#1b76ff">:شهر</p>
+            <select type="text" name="city" class="form-control">
+                <option value="یزد">یزد</option>
+                <option value="تهران">تهران</option>
+            </select>
+        </div>
+        <div class="form-group text-right">
+            <p style="font-size:2vw; color:#1b76ff">:تلفن</p>
+            <input type="text" name="phone" class="form-control" value="{{user.phone}}">
+        </div>
+        <div class="form-group text-right">
+            <p style="font-size:2vw; color:#1b76ff">: آدرس دقیق</p>
+            <input type="text" name="address" class="form-control text-right" value="{{user.address}}">
+        </div>
+        <div style="display:flex; justify-content:flex-end">
+            <button type="submit" class="btn btn-primary">ارسال سفارش</button>
+        </div>
+    </form>
+    
+
+
+
+{% if message %}
+    <div class="alert {{type}} text-right">
+         {{message}}
+    </div>
+{% endif %}
+
+{% endblock %}

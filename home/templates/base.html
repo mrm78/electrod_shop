@@ -10,50 +10,157 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+@font-face {
+  font-family: "nazanin";
+  src: url("{% static 'fonts/fonts/Nazanin.eot' %}") format('eot'),  
+       url("{% static 'fonts/fonts/Nazanin.woff' %}") format('woff'),
+       url("{% static 'fonts/fonts/Nazanin.ttf' %}") format('truetype');  
+  font-style:normal;
+  font-weight:normal;
+}
+
+@font-face {
+  font-family: "yekan";
+  src: url("{% static 'fonts/fonts/Yekan.eot' %}") format('eot'),  
+       url("{% static 'fonts/fonts/Yekan.woff' %}") format('woff'),
+       url("{% static 'fonts/fonts/Yekan.ttf' %}") format('truetype');  
+  font-style:normal;
+  font-weight:normal;
+}
+  </style>
 </head>
 
-<body style="background-color: rgb(212, 212, 212); background-size:100% 100%">
+<body style="background-color: rgb(212, 212, 212); font-family:yekan">
 
-    <div class="container-fluid" >
+    <div class="containe" style="overflow:auto">
 
 
+<!--this is for pc-->
 
-        <div class="navbar navbar-inverse hidden-xs" style="padding-right:10px; background-color:rgb(231, 56, 56)">
+        <!--image slide-->
+        <div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+          
+            <div class="carousel-inner">
+              <div class="item active">
+                <img src="{% static 'Carousel3.jpg' %}" style="width:100%; height:300px;">
+              </div>
+          
+              <div class="item">
+                <img src="{% static 'Carousel2.jpg' %}" style="width:100%; height:300px;">
+              </div>
+          
+              <div class="item">
+                <img src="{% static 'Carousel1.jpg' %}" style="width:100%; height:300px;">
+              </div>
+            </div>
+          
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+
+        <div class="navbar navbar-inverse hidden-xs"  style="padding-right:10px; background-color:rgb(231, 56, 56)" data-spy="affix" data-offset-top="300">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" style="font-size: 1.5em; color:white">مقالات علمی</a></li>
-                <li><a href="#" style="font-size: 1.5em; color:white">سبد</a></li>
-                <li><a href="#" style="font-size: 1.5em; color:white">عضویت/ورود</a></li>
+                <li><a href="#" style="font-size: 1.5em; color:rgb(207, 207, 207)">مقالات علمی</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'cart' 'a' %}" style="font-size: 1.5em; color:rgb(207, 207, 207)">سبد</a></li>
+                {% else %}
+                <li><a href="{% url 'sign_in' %}" style="font-size: 1.5em; color:rgb(207, 207, 207)">ورود</a></li>
+                <li><a href="{% url 'sign_up' %}" style="font-size: 1.5em; color:rgb(207, 207, 207)">عضویت</a></li>
+                {% endif %}
             </ul>
 
-            <form action="#" class="navbar-form navbar-left">
+            <form action="{% url 'home' %}" method="POST" class="navbar-form navbar-left" id="search">
+                    {% csrf_token %}
                 <div class="form-group">
-                    <input type="search" class="form-control" placeholder="جست و جو">
+                    <input type="search" name="q" class="form-control" placeholder="جست و جو">
                 </div>
-                <button type="submit" class="btn btn-warning">search</button>
+                <button type="submit" name="form" value="names" class="btn btn-warning">search</button>
             </form>
         </div>
+        <div class="hidden-xs fix-pc-nav"></div>
 
 
-            <div style="background-color:rgb(231, 47, 47)" class="row visible-xs">
 
-                <div class="col-xs-8">
-                    <form action="#" class="row" style="display:flex; justify-content:space-around; padding-top:1vh; padding-bottom:1vh">
-                        <input type="search" class="col-xs-8 form-control" placeholder="جست و جو">
-                        <button type="submit" class="btn btn-xs btn-warning col-xs-2"><span class="glyphicon glyphicon-search"></button>
+
+<!--this is for phone-->
+
+        <!--image slide-->
+        <div id="myCarouse" class="carousel slide visible-xs" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#myCarouse" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarouse" data-slide-to="1"></li>
+              <li data-target="#myCarouse" data-slide-to="2"></li>
+            </ol>
+          
+            <div class="carousel-inner">
+              <div class="item active">
+                <img src="{% static 'Carousel3.jpg' %}" style="width:100%; height:150px;">
+              </div>
+          
+              <div class="item">
+                <img src="{% static 'Carousel2.jpg' %}" style="width:100%; height:150px;">
+              </div>
+          
+              <div class="item">
+                <img src="{% static 'Carousel1.jpg' %}" style="width:100%; height:150px;">
+              </div>
+            </div>
+          
+            <a class="left carousel-control" href="#myCarouse" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarouse" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+        <div class="visible-xs"  data-spy="affix" data-offset-top="150">
+
+            <div style="background-color:rgb(231, 47, 47);display:flex; justify-content:center">
+              <img src="{% static 'logo1.png' %}" width="50%">
+            </div>
+
+            <div style="background-color:rgb(231, 47, 47);padding:1vw; display:flex; justify-content:space-between" class="row" id="search">
+
+                <div class="col-xs-10" style="margin-left:3vw">
+                    <form action="{% url 'home' %}" class="row" method="POST" style="display:flex; justify-content:space-around; padding-top:1vh; padding-bottom:1vh">
+                        {% csrf_token %}
+                        <input type="search" name="q" class="col-xs-8 form-control" placeholder="جست و جو">
+                        <button type="submit" name="form" value="names" class="btn btn-xs btn-warning col-xs-2"><span class="glyphicon glyphicon-search"></button>
                     </form>
                 </div>
 
-                <div class="col-xs-3"></div>
-
-                <a class="col-xs-1" data-toggle="collapse" data-target="#menu" href="#" style="font-size:x-large; padding-top:1vh; color:black; display:flex; justify-self: flex-end"><span class="glyphicon glyphicon-th-list"></a>
+                <a class="col-xs-2" data-toggle="collapse" data-target="#menu" href="#" style="font-size:x-large; padding-top:1vh; color:black; display:flex; justify-self: flex-end"><span class="glyphicon glyphicon-th-list"></a>
 
             </div>
-
-            <div class="collapse row" id="menu" style="background-color:rgb(231, 47, 47); padding-right:1vw">
-                    <a href="#"><div class="text-right"><span style="color:cornsilk; font-size:5vw">عضویت/ورود</span></div></a>
-                    <a href="#"><div class="text-right"><span style="color:cornsilk; font-size:5vw">سبد</span></div></a>
-                    <a href="#"><div class="text-right"><span style="color:cornsilk; font-size:5vw">مقالات علمی</span></div></a>
-                    </div>
+        
+            <div class="collapse row" id="menu" style="background-color:rgb(231, 47, 47); padding-right:20px;">
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'sign_in' %}"><div class="text-right"><span style="color:rgb(207, 207, 207); font-size:5vw">ورود</span>  <span class="glyphicon glyphicon-log-in" style="color:rgb(94, 94, 94); font-size:3vw"></span></div></a>
+                    <a href="{% url 'sign_up' %}"><div class="text-right"><span style="color:rgb(207, 207, 207); font-size:5vw">عضویت</span>  <span class="glyphicon glyphicon-plus-sign" style="color:rgb(94, 94, 94); font-size:3vw"></span></div></a>
+                    {% else %}
+                    <a href="{% url 'cart' 'a' %}"><div class="text-right"><span style="color:rgb(207, 207, 207); font-size:5vw">سبد</span>  <span class="glyphicon glyphicon-shopping-cart" style="color:rgb(94, 94, 94); font-size:3vw"></span></div></a>
+                    {% endif %}
+                    <a href="#"><div class="text-right"><span style="color:rgb(207, 207, 207); font-size:5vw">مقالات علمی</span>  <span class="glyphicon glyphicon-paperclip" style="color:rgb(94, 94, 94); font-size:3vw"></span></div></a>
+            </div>
+            </br>
+        </div>
+        <div class="fix-phone-nav"></div>
 
         {% block content %}
         {% endblock %}
@@ -73,7 +180,7 @@
                 </div>
 
                 <div class="col-xs-4 text-center">
-                    <strong style="color:rgb(206, 56, 56); font-size:2vmax">شبکه های اجتماعی</strong></br>
+                    <strong style="color:rgb(206, 56, 56); font-size:2.5vw">شبکه های اجتماعی</strong></br>
                     <hr style="border-color:rgb(250, 84, 84); width:80%">
                     <img src="{% static 'gmail.png' %}" width="15%" >
                     <img src="{% static 'telegram.png' %}" width="15%">
@@ -81,12 +188,12 @@
                 </div>
 
                 <div class="col-xs-4 text-center">
-                    <p style="font-size:2vmax; color: rgb(206, 56, 56)">برندها</p>
+                    <p style="font-size:2.5vw; color: rgb(206, 56, 56)">برندها</p>
                     <hr style="border-color:rgb(250, 84, 84); width:90%">
                 </div>
 
             </div>
-            <div class="text-center" style="color: rgb(177, 177, 177)"><span style="font-size:2vw"> تمامی حقوق این سایت نزد هایپرالکترود محفوظ می باشد </span><span class="glyphicon glyphicon-copyright-mark"></span></div>
+            <div class="text-center" style="color: rgb(177, 177, 177)"><span style="font-size:2vw"> تمامی حقوق این سایت نزد هایپرالکترود محفوظ می باشد </span><span>&copy;</span></div>
         </div>
 
     </div>
@@ -95,3 +202,25 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+<!--navbar affix styles-->
+<style>
+  .affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+  }
+
+  .affix + .fix-pc-nav {
+    padding-top: 70px;
+  }
+  .affix + .fix-phone-nav {
+    padding-top: 110px;
+  }
+  </style>

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="display:flex; justify-content:center">
+
+        <div class="jumbotron col-lg-5 col-md-6 col-sm-8 col-xs-12" style="background-color: rgb(119, 183, 255); padding-top:20px" >
+            <div class="text-center"><h3 style="color: rgb(128, 117, 117)">عضویت</h3></div>
+            <form action="{% url 'sign_up' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-user"></span> نام</label>
+                    <input  class="form-control" type="text" name="name" placeholder="نام ">
+                </div>
+                <div class="form-group">
+                        <label><span class="glyphicon glyphicon-user"></span> نام خانوادگی</label>
+                        <input  class="form-control" type="text" name="family" placeholder="نام خانوادگی">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-user"></span> نام کاربری</label>
+                    <input  class="form-control" type="text" name="username" placeholder="ali1368">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-lock"></span> رمز عبور</label>
+                    <input  class="form-control" type="password" name="password" placeholder="12345678">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-phone"></span> شماره تلفن</label>
+                    <input  class="form-control" type="tel" name="phone" placeholder="0912*******">
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-home"></span> آدرس</label>
+                    <input  class="form-control" type="text" name="address" placeholder=" آدرس">
+                </div>
+                    <button class="btn btn-primary" type="submit">تائید</button>
+            </form>
+        </div>
+
+</div>
+
+{% if error %}
+<div class="alert alert-danger fade in row">
+    <p class="col-xs-9" style="display:flex; justify-content:flex-end; font-size:2vw">{{error}}</p>
+    <a href="#" class="close col-xs-1" data-dismiss="alert" aria-label="close">&times;</a>
+</div>
+{% endif %}
+
+{% endblock %}

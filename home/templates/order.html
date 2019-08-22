@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!--for pc-->
+<form action="{% url 'cart' product.id %}" method="POST" class="hidden-xs" style="padding:1vh; padding-left:3vw; padding-right:3vw">
+{% csrf_token %}
+    <div class="row">
+        <div class="col-xs-4">
+            <img src="{{product.image.url}}" class="img-thumbnail" style="height:auto; width:15vw;">
+        </div>
+
+        <div class="col-xs-8 row text-right text-danger" style="display:flex; justify-content:flex-end">
+            <div class="col-xs-6">
+                <div class="row">
+                    <span class="col-xs-6"> {{product.Type.unit}}</span>
+                    <input class="col-xs-4" type="number" step="any" required name="amount" style="border-radius:3px ;color:black;">
+                    <p class="col-xs-2" style="font-size:2vw; color:#1b76ff">:مقدار </p>
+                </div></br>
+
+            {% if product.size != 'None' %}
+                <div class="row text-right">
+                    <span class="col-xs-10" style="color:black">{{product.size}}</span>
+                    <span class="col-xs-2" style="font-size:2vw; color:#1b76ff"> :سایز </span>
+                </div>
+            {% endif %}
+            </div>
+
+            <div class="col-xs-6">
+                <p style="font-size:2vw">{{ product.name }}</p>
+                <p style="font-size: 2vw">قیمت: {{ product.price }}</p>
+
+                {% for i in product.empty_star_rating %}
+                <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
+                {% endfor %}
+                {% for i in product.full_star_rating %}
+                <span class="fa fa-star" style="color:gold"></span>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end">
+        <button type="submit" class="btn btn-primary">اضافه کردن به سبد خرید</button>
+    </div>
+</form>
+<div class="hidden-xs" style="padding:5px">
+    <h3 class="text-right text-danger" style="margin-right:2vw">:توضیحات</h3>
+    <div class="well text-right" style="font-family:nazanin; font-size:2vw">{{product.explain}}</div>
+</div>
+
+
+<!--for phone-->
+<form action="{% url 'cart' product.id %}" method="POST" class="visible-xs" style="padding:1vh; padding-left:3vw; padding-right:3vw">
+{% csrf_token %}
+        <div class="row">
+            <div class="col-xs-5">
+                <img src="{{product.image.url}}" class="img-thumbnail" style="height:auto; width:100%">
+            </div>
+
+            <div class="col-xs-7 text-right text-danger">
+
+                    <p style="font-size:15px">{{ product.name }}</p>
+                    <p style="font-size: 12px">قیمت: {{ product.price }}</p>
+
+                    {% for i in product.empty_star_rating %}
+                    <span class="fa fa-star" style="color:rgb(73, 78, 78)"></span>
+                    {% endfor %}
+                    {% for i in product.full_star_rating %}
+                    <span class="fa fa-star" style="color:gold"></span>
+                    {% endfor %}
+
+            </div>
+        </div></br>
+
+        <div class="row text-right">
+            <span class="col-xs-6"> {{product.Type.unit}}</span>
+            <input class="col-xs-4" type="number" step="any" required name="amount" style="border-radius:3px ;color:black;">
+            <p class="col-xs-2" style="font-size:4vw; color:#1b76ff">:مقدار </p>
+        </div></br>
+
+        {% if product.size != 'None' %}
+            <div class="row  text-right">
+                <span class="col-xs-10" style="color:black">{{product.size}}</span>
+                <span class="col-xs-2" style="font-size:4vw; color:#1b76ff"> :سایز </span>
+            </div></br>
+        {% endif %}
+
+        </br>
+        <div style="display:flex; justify-content:flex-end">
+            <button type="submit" class="btn btn-primary">اضافه کردن به سبد خرید</button>
+        </div>
+    </form>
+<div class="visible-xs" style="padding:5px">
+    <h3 class="text-right text-danger" style="margin-right:17px">:توضیحات</h3>
+    <div class="well text-right" style="font-family:nazanin; font-size:12px">{{product.explain}}</div>
+</div>
+
+
+
+{% endblock %}
